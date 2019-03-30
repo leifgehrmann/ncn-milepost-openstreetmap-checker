@@ -1,4 +1,4 @@
-from typing import Tuple, Optional
+from typing import Optional
 import re
 
 
@@ -13,7 +13,8 @@ class Milepost:
         self.osm_id = None
         self.osm_sustrans_ref = None
         self.osm_milepost_type = None
-        self.osm_coordinates = None
+        self.osm_longitude = None
+        self.osm_latitude = None
 
     def set_sustrans_ref(self, sustrans_ref: str):
         self.sustrans_ref = sustrans_ref
@@ -42,22 +43,17 @@ class Milepost:
     def set_osm_milepost_type(self, milepost_type: str):
         self.osm_milepost_type = milepost_type
 
-    def set_osm_coordinates(self, coordinates: Tuple[float, float]):
-        self.osm_coordinates = coordinates
+    def set_osm_longitude(self, longitude: float):
+        self.osm_longitude = longitude
+
+    def set_osm_latitude(self, latitude: float):
+        self.osm_latitude = latitude
 
     def has_valid_sustrans_ref(self) -> bool:
-        return self.valid_sustrans_ref(self.sustrans_ref)
-
-    def to_osm_string(self) -> str:
-        return "%s - %s (%f,%f)" % (
-            self.sustrans_ref,
-            self.osm_milepost_type,
-            self.osm_coordinates[1],
-            self.osm_coordinates[0]
-        )
+        return self._valid_sustrans_ref(self.sustrans_ref)
 
     @staticmethod
-    def valid_sustrans_ref(sustrans_ref: Optional[str]) -> bool:
+    def _valid_sustrans_ref(sustrans_ref: Optional[str]) -> bool:
         if sustrans_ref is None:
             return False
         return bool(re.match('^MP[0-9]+$', sustrans_ref))

@@ -1,3 +1,5 @@
 from .milepost import Milepost
 from .milepost_collection import MilepostCollection
 from .overpass_milepost_downloader import OverpassMilepostDownloader
+from .wiki_milepost_row import WikiMilepostRow
+from .wiki_milepost_downloader import WikiMilepostDownloader
