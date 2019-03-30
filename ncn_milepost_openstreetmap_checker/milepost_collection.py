@@ -1,16 +1,19 @@
 from . import Milepost
-from typing import List
+from typing import List, Optional
 
 
 class MilepostCollection:
     def __init__(self):
         self.mileposts = {}
 
-    def add_milepost(self, milepost: Milepost):
+    def add_milepost(self, milepost: Milepost) -> None:
         self.mileposts[milepost.sustrans_ref] = milepost
 
-    def get_milepost_by_sustrans_ref(self, sustrans_ref) -> Milepost:
-        return self.mileposts[sustrans_ref]
+    def get_milepost_by_sustrans_ref(
+            self,
+            sustrans_ref: str
+    ) -> Optional[Milepost]:
+        return self.mileposts.get(sustrans_ref, None)
 
     def get_mileposts(self) -> List[Milepost]:
         return list(self.mileposts.values())
