@@ -35,6 +35,8 @@ with open('output.csv', mode='w') as output_file:
         'Sustrans Ref',
         'Wiki Sustrans Ref',
         'OSM Sustrans Ref',
+        'Valid Wiki Sustrans Ref',
+        'Valid OSM Sustrans Ref',
         'Wiki Milepost Type',
         'OSM Milepost Type',
         'Wiki Region',
@@ -43,6 +45,10 @@ with open('output.csv', mode='w') as output_file:
         'OSM Id',
         'OSM Longitude',
         'OSM Latitude',
+        'Exists in wiki but incomplete in OSM',
+        'Exists in wiki but incorrect in OSM',
+        'Exists in OSM but not in Wiki',
+        'Complete in OSM but not in Wiki',
     ]
 
     output_writer.writerow(headers)
@@ -52,6 +58,8 @@ with open('output.csv', mode='w') as output_file:
             str(milepost.sustrans_ref),
             str(milepost.wiki_sustrans_ref),
             str(milepost.osm_sustrans_ref),
+            str(milepost.has_valid_wiki_sustrans_ref()),
+            str(milepost.has_valid_osm_sustrans_ref()),
             str(milepost.wiki_milepost_type),
             str(milepost.osm_milepost_type),
             str(milepost.wiki_region),
@@ -59,6 +67,10 @@ with open('output.csv', mode='w') as output_file:
             str(milepost.wiki_osm_link),
             str(milepost.osm_id),
             str(milepost.osm_longitude),
-            str(milepost.osm_latitude)
+            str(milepost.osm_latitude),
+            str(milepost.has_osm_link_but_incomplete_in_osm()),
+            str(milepost.has_osm_link_but_incorrect_in_osm()),
+            str(milepost.has_osm_id_but_not_in_wiki()),
+            str(milepost.has_valid_osm_ref_but_not_in_wiki())
         ]
         output_writer.writerow(row)
