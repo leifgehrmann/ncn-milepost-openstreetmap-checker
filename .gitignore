@@ -1,4 +1,4 @@
 venv
 .idea
-output.csv
+output*.csv
 __pycache__
