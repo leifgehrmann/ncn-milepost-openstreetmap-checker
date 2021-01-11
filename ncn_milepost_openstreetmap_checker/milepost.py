@@ -73,6 +73,10 @@ class Milepost:
         return self.has_valid_osm_sustrans_ref() and \
                self.wiki_sustrans_ref is None
 
+    def has_osm_link_and_complete_in_osm(self):
+        return self.wiki_osm_link is not None and self.osm_id is not None and \
+               int(self.wiki_osm_link) == int(self.osm_id)
+
     @staticmethod
     def _valid_sustrans_ref(sustrans_ref: Optional[str]) -> bool:
         if sustrans_ref is None:

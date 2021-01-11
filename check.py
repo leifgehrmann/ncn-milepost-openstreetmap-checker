@@ -49,6 +49,7 @@ with open('output.csv', mode='w') as output_file:
         'Exists in wiki but incorrect in OSM',
         'Exists in OSM but not in Wiki',
         'Complete in OSM but not in Wiki',
+        'Complete in wiki and OSM',
     ]
 
     output_writer.writerow(headers)
@@ -71,6 +72,7 @@ with open('output.csv', mode='w') as output_file:
             str(milepost.has_osm_link_but_incomplete_in_osm()),
             str(milepost.has_osm_link_but_incorrect_in_osm()),
             str(milepost.has_osm_id_but_not_in_wiki()),
-            str(milepost.has_valid_osm_ref_but_not_in_wiki())
+            str(milepost.has_valid_osm_ref_but_not_in_wiki()),
+            str(milepost.has_osm_link_and_complete_in_osm()),
         ]
         output_writer.writerow(row)
