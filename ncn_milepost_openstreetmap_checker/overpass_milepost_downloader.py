@@ -16,7 +16,7 @@ class OverpassMilepostDownloader:
         self.milepost_collection = milepost_collection
         self.bbox = (
             49.9599,
-            -9.1922,
+            -8.1956,
             60.8842,
             1.7746
         )
