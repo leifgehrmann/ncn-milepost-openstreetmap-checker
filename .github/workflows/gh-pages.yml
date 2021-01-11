@@ -34,10 +34,9 @@ jobs:
         sed -i '/\/dist/d' .gitignore
         echo "ncn-milepost-openstreetmap-checker.leifgehrmann.com" >> ./dist/CNAME
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.6.0
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./dist
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        forceOrphan: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./dist
+        force_orphan: true
