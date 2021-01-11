@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NCN Milepost OpenStreetMap Checker</title>
+    <script src="sortable.js"></script>
+    <link rel="stylesheet" href="sortable.css">
+</head>
+<body>
+<h1>NCN Milepost OpenStreetMap Checker</h1>
+<h2>About</h2>
+
+<h2>Attribution</h2>
+<ul>
+    <li>Wiki data comes from the OpenStreetMap wiki article <em><a href="https://wiki.openstreetmap.org/wiki/Sustrans_Millennium_Mileposts">Sustrans Millennium Mileposts</a></em>, whose content is licensed under <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></li>
+    <li>OSM data queried from <a href="https://overpass-turbo.eu">Overpass Turbo</a>, from which the data comes from <a href="https://openstreetmap.org">OpenStreetMap.org</a> (&copy; OpenStreetMap contributors), whose content is licensed under <a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License (ODbL)</a></li>
+</ul>
+<h2>Data</h2>
+<table id="data">
+    %s
+</table>
+
+<script>
+    window.addEventListener("load", function(){
+      createTable("data", null, "sortable");
+    });
+</script>
+</body>
+</html>

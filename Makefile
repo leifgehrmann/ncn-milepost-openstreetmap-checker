@@ -3,3 +3,6 @@ install:
 
 check:
 	python3 check.py
+
+render-csv-to-html:
+	python3 render_csv_to_html.py
