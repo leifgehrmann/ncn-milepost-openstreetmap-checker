@@ -1,3 +1,6 @@
+import logging
+from urllib.error import HTTPError
+
 from bs4 import BeautifulSoup
 import urllib.request
 from ncn_milepost_openstreetmap_checker import MilepostCollection
@@ -9,6 +12,10 @@ class WikiMilepostDownloader:
     def __init__(self, url: str, milepost_collection: MilepostCollection):
         self.url = url
         self.milepost_collection = milepost_collection
+
+        logging.basicConfig()
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
 
     def _process_row(self, row) -> None:
         milepost_row = WikiMilepostRow(row)
@@ -34,7 +41,20 @@ class WikiMilepostDownloader:
             self._process_table(table)
 
     def download(self) -> None:
-        with urllib.request.urlopen(self.url) as response:
-            html = response.read()
-            soup = BeautifulSoup(html, 'html.parser')
-            self._process_page(soup)
+        attempts = 1
+        html = ''
+        # We try 5 times because sometimes the OpenStreetMap wiki times out.
+        while attempts <= 5:
+            self.logger.info('Downloading wiki page (Attempt %d)' % attempts)
+            try:
+                with urllib.request.urlopen(self.url) as response:
+                    html = response.read()
+                    break
+            except HTTPError:
+                self.logger.exception('Error downloading wiki page')
+                attempts += 1
+        self.logger.info('Downloaded wiki page, now parsing wiki HTML')
+        soup = BeautifulSoup(html, 'html.parser')
+        self.logger.info('Parsed wiki HTML, now processing wiki HTML')
+        self._process_page(soup)
+        self.logger.info('Successfully processed wiki data')

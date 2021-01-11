@@ -1,3 +1,5 @@
+import logging
+
 import overpass
 from . import Milepost
 from . import MilepostCollection
@@ -17,11 +19,11 @@ class OverpassMilepostDownloader:
             -9.1922,
             60.8842,
             1.7746
-            # 55.90053358079389,
-            # -3.264827728271484,
-            # 55.973990318389355,
-            # -3.121662139892578
         )
+
+        logging.basicConfig()
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
 
     @staticmethod
     def _get_sustrans_ref_from_feature(feature) -> str:
@@ -44,7 +46,9 @@ class OverpassMilepostDownloader:
 
     def download(self) -> None:
         bbox_str = ','.join(map(str, self.bbox))
+        self.logger.info('Downloading OSM data')
         response = self.api.get('node[ncn_milepost](%s)' % bbox_str)
+        self.logger.info('Downloaded OSM data, now processing OSM data')
         for feature in response['features']:
             sustrans_ref = self._get_sustrans_ref_from_feature(feature)
 
@@ -57,3 +61,4 @@ class OverpassMilepostDownloader:
                 raise Exception('Duplicate OSM entry for %s' % sustrans_ref)
 
             self._update_milepost_with_osm_data(milepost, feature)
+        self.logger.info('Successfully processed OSM data')
