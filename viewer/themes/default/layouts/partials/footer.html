@@ -11,18 +11,36 @@
 
     {{ $jquery := resources.Get "js/jquery.min.js" }}
     {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" }}
-    {{ $js := slice $jquery $bootstrap | resources.Concat "js/bundle.js" | resources.Minify }}
+    {{ $dataTablesJquery := resources.Get "js/jquery.dataTables.min.js" }}
+    {{ $dataTablesFixedHeader := resources.Get "js/dataTables.fixedHeader.min.js" }}
+    {{ $js := slice $jquery $bootstrap $dataTablesJquery $dataTablesFixedHeader | resources.Concat "js/bundle.js" | resources.Minify }}
 
     <script src="{{$js.RelPermalink}}"></script>
-    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
     <script>
         document.onreadystatechange = function () {
             if (document.readyState === "interactive") {
-                jQuery('#example').DataTable({
+                jQuery('#example thead tr').clone(true).appendTo( '#example thead' );
+                jQuery('#example thead tr:eq(1) th').each( function (i) {
+                    var title = jQuery(this).text();
+                    jQuery(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+                    jQuery( 'input', this ).on( 'keyup change', function () {
+                        if ( table.column(i).search() !== this.value ) {
+                            table
+                                .column(i)
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                } );
+
+                var table = jQuery('#example').DataTable({
                     "paging":   false,
                     "responsive": false,
-                    "scrollX": true
+                    "scrollX": true,
+                    "orderCellsTop": true,
+                    "fixedHeader": true
                 });
             }
         }
