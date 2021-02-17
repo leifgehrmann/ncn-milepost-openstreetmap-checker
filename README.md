@@ -23,11 +23,27 @@ can be used as a tool to identify which mileposts are missing or incorrect.
 
 ## Usage
 
-Make sure python3 is installed.
+Make sure to install python3.
 
 ```
-make install
-make check
+python3 -m venv venv
+make install-checker
+make checker
+```
+
+This will generate a file in the `output` folder.
+
+## Viewing the data
+
+While the CSV is good enough for most use cases, I've also created a viewer
+to render the CSV data into something more accessible at:
+https://ncn-milepost-openstreetmap-checker.leifgehrmann.com
+
+Make sure to install NPM.
+
+```
+make install-viewer
+make viewer
 ```
 
 

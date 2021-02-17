@@ -1,0 +1,34 @@
+// Variable overrides for bootstrap
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+.ellipsize {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 200px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #06090f;
+    color: #d6dade;
+  }
+
+  a {
+    color: #0263f2;
+  }
+
+  a:hover {
+    color: #3583f5;
+  }
+
+  .bg-light {
+    background: #0d1117 !important;
+  }
+
+  .text-muted {
+    color: #828b93 !important;
+  }
+}

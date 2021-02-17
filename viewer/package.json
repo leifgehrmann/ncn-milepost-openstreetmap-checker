@@ -1,0 +1,16 @@
+{
+  "name": "viewer",
+  "version": "1.0.0",
+  "description": "Viewer of ncn-milepost-openstreetmap-checker data",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leif Gehrmann",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta1",
+    "datatables.net": "^1.10.23",
+    "datatables.net-dt": "^1.10.23"
+  }
+}

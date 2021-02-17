@@ -1,0 +1,30 @@
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#top">Back to top</a>
+        </p>
+        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+
+    <!-- JavaScript and dependencies -->
+
+    {{ $jquery := resources.Get "js/jquery.min.js" }}
+    {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" }}
+    {{ $js := slice $jquery $bootstrap | resources.Concat "js/bundle.js" | resources.Minify }}
+
+    <script src="{{$js.RelPermalink}}"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState === "interactive") {
+                jQuery('#example').DataTable({
+                    "paging":   false,
+                    "responsive": false,
+                    "scrollX": true
+                });
+            }
+        }
+    </script>
+</footer>

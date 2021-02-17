@@ -1,0 +1,88 @@
+{{ define "main" }}
+
+<section class="py-5 container">
+    <div class="row py-lg-5">
+        <div class="col-lg-4 col-md-6 mx-auto">
+            <img src="https://assets.leifgehrmann.com/posts/2019-04-13/ncn-mileposts-collage.jpg" class="img-fluid rounded" alt="bla">
+        </div>
+        <div class="col-lg-8 col-md-6 mx-auto">
+            <h1 class="fw-light">NCN Millennium Mileposts in OpenStreetMap</h1>
+            <p class="lead text-muted">Across the United Kingdom are hundreds of mileposts, </p>
+        </div>
+    </div>
+</section>
+<div class="py-2 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">982</p>
+                <p class="text-muted">&nbsp;</p>
+                <p class="">Mileposts listed in the OpenStreetMap Wiki</p>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">83%</p>
+                <p class="text-muted">815 / 982</p>
+                <p class="">Mileposts mapped on OpenStreetMap.org</p>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">76%</p>
+                <p class="text-muted">746 / 982</p>
+                <p class="">Mileposts <span class="fst-italic fw-bold">correctly</span> mapped in OpenStreetMap.org</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <table id="example">
+        <thead>
+        <tr>
+            <td>Sustrans Ref</td>
+            <td>Wiki Sustrans Ref</td>
+            <td>OSM Sustrans Ref</td>
+            <td>Valid Wiki Sustrans Ref</td>
+            <td>Valid OSM Sustrans Ref</td>
+            <td>Wiki Milepost Type</td>
+            <td>OSM Milepost Type</td>
+            <td>Wiki Region</td>
+            <td>Wiki Location</td>
+            <td>Wiki OSM link</td>
+            <td>OSM Id</td>
+            <td>OSM Longitude</td>
+            <td>OSM Latitude</td>
+            <td>Complete in wiki and OSM</td>
+            <td>Exists in wiki but incomplete in OSM</td>
+            <td>Exists in wiki but incorrect in OSM</td>
+            <td>Exists in OSM but not in Wiki</td>
+            <td>Complete in OSM but not in Wiki</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{ $url := "data/output.csv" }}
+        {{ $sep := "," }}
+        {{ range $i, $r := getCSV $sep $url }}
+        <tr>
+            <td>{{ index $r 0 }}</td>
+            <td>{{ index $r 1 }}</td>
+            <td>{{ index $r 2 }}</td>
+            <td>{{ index $r 3 }}</td>
+            <td>{{ index $r 4 }}</td>
+            <td>{{ index $r 5 }}</td>
+            <td>{{ index $r 6 }}</td>
+            <td><span class="ellipsize">{{ index $r 7 }}</span></td>
+            <td><span class="ellipsize">{{ index $r 8 }}</span></td>
+            <td>{{ index $r 9 }}</td>
+            <td>{{ index $r 10 }}</td>
+            <td>{{ index $r 11 }}</td>
+            <td>{{ index $r 12 }}</td>
+            <td>{{ index $r 13 }}</td>
+            <td>{{ index $r 14 }}</td>
+            <td>{{ index $r 15 }}</td>
+            <td>{{ index $r 16 }}</td>
+            <td>{{ index $r 17 }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+
+{{ end }}

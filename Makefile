@@ -1,8 +1,15 @@
-install:
-	pip install -r requirements.txt
+checker-install:
+	cd checker && pip install -r requirements.txt
 
-check:
-	python3 check.py
+checker:
+	cd checker
+	python3 check.py -o ./output/output.csv
 
-render-csv-to-html:
-	python3 render_csv_to_html.py
+viewer-install:
+	cd viewer && npm install
+
+viewer-dev:
+	cd viewer && npm run dev
+
+viewer-build:
+	cd viewer && npm run build
