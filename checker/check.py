@@ -35,8 +35,8 @@ with open('../output/output.csv', mode='w') as output_file:
         'Unique Sustrans Ref',
         'Listed in Wiki',
         'Mapped in OSM',
-        'Mapped completely in OSM'
-        'Mapped and listed completely in OSM and Wiki'
+        'Mapped completely in OSM',
+        'Mapped and listed completely in OSM and Wiki',
         'Wiki Sustrans Ref',
         'OSM Sustrans Ref',
         'Valid Wiki Sustrans Ref',
@@ -44,9 +44,9 @@ with open('../output/output.csv', mode='w') as output_file:
         'Matching Sustrans Ref',
         'Wiki Milepost Type',
         'OSM Milepost Type',
-        'Valid Wiki Milepost Type'
-        'Valid OSM Milepost Type'
-        'Matching Milepost Type'
+        'Valid Wiki Milepost Type',
+        'Valid OSM Milepost Type',
+        'Matching Milepost Type',
         'Node Id in wiki',
         'Node Id in OSM',
         'Valid Node Id in Wiki',
@@ -54,7 +54,7 @@ with open('../output/output.csv', mode='w') as output_file:
         'Node longitude',
         'Node latitude',
         'Wiki Region',
-        'Wiki Location',
+        'Wiki Location'
     ]
 
     output_writer.writerow(headers)

@@ -63,7 +63,7 @@ class Milepost:
                self.has_valid_osm_milepost_type()
 
     def is_mapped_and_listed_completely_in_osm_and_wiki(self) -> bool:
-        return self.is_mapped_correctly_in_osm() and \
+        return self.is_mapped_completely_in_osm() and \
                self.is_in_wiki() and \
                self.has_matching_sustrans_ref() and \
                self.has_matching_milepost_type() and \
