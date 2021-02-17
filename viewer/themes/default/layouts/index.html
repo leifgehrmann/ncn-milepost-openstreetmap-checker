@@ -37,23 +37,26 @@
         <thead>
         <tr>
             <th>Sustrans Ref</th>
+            <th>Listed in Wiki</th>
+            <th>Mapped in OSM</th>
+            <th>Mapped completely in OSM</th>
+            <th>Mapped and listed completely in OSM and Wiki</th>
             <th>Wiki Sustrans Ref</th>
             <th>OSM Sustrans Ref</th>
             <th>Valid Wiki Sustrans Ref</th>
             <th>Valid OSM Sustrans Ref</th>
+            <th>Matching Sustrans Ref</th>
             <th>Wiki Milepost Type</th>
             <th>OSM Milepost Type</th>
+            <th>Valid Wiki Milepost Type</th>
+            <th>Valid OSM Milepost Type</th>
+            <th>Matching Milepost Type</th>
+            <th>Node ID link in Wiki</th>
+            <th>Node ID in OSM</th>
+            <th>Valid Node ID in Wiki</th>
+            <th>Matching Node ID</th>
             <th>Wiki Region</th>
             <th>Wiki Location</th>
-            <th>Wiki OSM link</th>
-            <th>OSM Id</th>
-            <th>OSM Longitude</th>
-            <th>OSM Latitude</th>
-            <th>Complete in wiki and OSM</th>
-            <th>Exists in wiki but incomplete in OSM</th>
-            <th>Exists in wiki but incorrect in OSM</th>
-            <th>Exists in OSM but not in Wiki</th>
-            <th>Complete in OSM but not in Wiki</th>
         </tr>
         </thead>
         <tbody>
@@ -68,8 +71,8 @@
             <td>{{ index $r 4 }}</td>
             <td>{{ index $r 5 }}</td>
             <td>{{ index $r 6 }}</td>
-            <td><span class="ellipsize">{{ index $r 7 }}</span></td>
-            <td><span class="ellipsize">{{ index $r 8 }}</span></td>
+            <td>{{ index $r 7 }}</td>
+            <td>{{ index $r 8 }}</td>
             <td>{{ index $r 9 }}</td>
             <td>{{ index $r 10 }}</td>
             <td>{{ index $r 11 }}</td>
@@ -79,6 +82,9 @@
             <td>{{ index $r 15 }}</td>
             <td>{{ index $r 16 }}</td>
             <td>{{ index $r 17 }}</td>
+            <td>{{ index $r 18 }}</td>
+            <td><span class="ellipsize">{{ index $r 21 }}</span></td>
+            <td><span class="ellipsize">{{ index $r 22 }}</span></td>
         </tr>
         {{ end }}
         </tbody>

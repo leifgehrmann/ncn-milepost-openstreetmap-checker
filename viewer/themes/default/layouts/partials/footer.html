@@ -23,7 +23,7 @@
                 jQuery('#example thead tr').clone(true).appendTo( '#example thead' );
                 jQuery('#example thead tr:eq(1) th').each( function (i) {
                     var title = jQuery(this).text();
-                    jQuery(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                    jQuery(this).html( '<input type="text" placeholder="Search '+title+'" style="width: 20px"/>' );
 
                     jQuery( 'input', this ).on( 'keyup change', function () {
                         if ( table.column(i).search() !== this.value ) {
