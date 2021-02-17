@@ -18,7 +18,8 @@ class WikiMilepostRow:
             .lower()
 
     def read_location(self) -> Optional[str]:
-        return self.row.select_one('td:nth-of-type(4)').get_text().strip()
+        return self.row.select_one('td:nth-of-type(4)').get_text().strip()\
+            .replace('\\n', '')
 
     def read_osm_link(self) -> Optional[str]:
         anchor = self.row.select_one('td:nth-of-type(5) a.text')

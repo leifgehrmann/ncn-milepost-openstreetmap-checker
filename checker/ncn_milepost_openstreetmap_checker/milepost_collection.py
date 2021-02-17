@@ -1,11 +1,11 @@
 from . import Milepost
 from typing import List, Optional
-import uuid
 
 
 class MilepostCollection:
     def __init__(self):
         self.mileposts = {}
+        self.unknown_milepost_count = 0
 
     def add_milepost(self, milepost: Milepost) -> None:
         self.mileposts[milepost.sustrans_ref] = milepost
@@ -60,7 +60,8 @@ class MilepostCollection:
 
     def _create_milepost_with_sustrans_ref(self, sustrans_ref: str) -> Milepost:
         if not self._valid_sustrans_ref(sustrans_ref):
-            sustrans_ref = 'Unknown-%s' % uuid.uuid4()
+            self.unknown_milepost_count += 1
+            sustrans_ref = 'Unknown Ref %d' % self.unknown_milepost_count
 
         milepost = Milepost()
         milepost.set_sustrans_ref(sustrans_ref)
@@ -71,5 +72,5 @@ class MilepostCollection:
     def _valid_sustrans_ref(sustrans_ref: Optional[str]) -> bool:
         temporary_milepost = Milepost()
         temporary_milepost.set_sustrans_ref(sustrans_ref)
-        return temporary_milepost.has_valid_sustrans_ref()
+        return temporary_milepost.has_valid_sustrans_ref_as_key()
 
