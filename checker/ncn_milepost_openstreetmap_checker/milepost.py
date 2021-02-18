@@ -94,7 +94,8 @@ class Milepost:
 
     # Node id validation
     def has_valid_node_id_in_wiki(self) -> bool:
-        return self.wiki_osm_link is not None and self.wiki_osm_link
+        return self.wiki_osm_link is not None and \
+               self.wiki_osm_link.isnumeric()
 
     def has_matching_node_id(self) -> bool:
         return self.wiki_osm_link is not None and self.osm_id is not None and \

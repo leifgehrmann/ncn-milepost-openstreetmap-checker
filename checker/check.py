@@ -69,7 +69,7 @@ with open('../output/output.csv', mode='w') as output_file:
 
     for milepost in milepost_collection.get_mileposts():
         row = [
-            none_2_hyphen(milepost.sustrans_ref),
+            milepost.sustrans_ref if milepost.has_valid_sustrans_ref_as_key() else 'unknown',
             tf_2_yn(milepost.is_in_wiki()),
             tf_2_yn(milepost.is_in_osm()),
             tf_2_yn(milepost.is_mapped_completely_in_osm()),
