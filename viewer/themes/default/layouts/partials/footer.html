@@ -3,8 +3,8 @@
         <p class="float-end mb-1">
             <a href="#top">Back to top</a>
         </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+        <p class="mb-1">This page was generated {{ now.Format "2006-01-02 15:04:05Z07:00" }}</p>
+        <p class="mb-0">Source code can be found on <a href="https://github.com/leifgehrmann/ncn-milepost-openstreetmap-checker">Github.com</a>.</p>
     </div>
 
     <!-- JavaScript and dependencies -->
@@ -23,7 +23,7 @@
                 jQuery('#example thead tr').clone(true).appendTo( '#example thead' );
                 jQuery('#example thead tr:eq(1) th').each( function (i) {
                     var title = jQuery(this).text();
-                    jQuery(this).html( '<input type="text" placeholder="Search '+title+'" style="width: 20px"/>' );
+                    jQuery(this).html( '<input type="text" placeholder="Search" class="form-control form-control-sm table-search"/>' );
 
                     jQuery( 'input', this ).on( 'keyup change', function () {
                         if ( table.column(i).search() !== this.value ) {
@@ -38,10 +38,11 @@
                 var table = jQuery('#example').DataTable({
                     "paging":   false,
                     "responsive": false,
-                    "scrollX": true,
                     "orderCellsTop": true,
                     "fixedHeader": true
                 });
+
+                jQuery('#showValidationColumns').appendTo(jQuery('#example_wrapper > .row:first-child > div:first-child')).show();
             }
         }
     </script>

@@ -2,6 +2,18 @@
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 
+$body-bg-light: $body-bg;
+$body-bg-dark: #06090f;
+$body-color-dark: #d6dade;
+$green-light: #00703C;
+$green-dark: #21B570;
+$red-light: #AA1D2B;
+$red-dark: #E9818B;
+
+th {
+  font-size: 0.8rem;
+}
+
 .ellipsize {
   white-space: nowrap;
   overflow: hidden;
@@ -10,18 +22,76 @@
   width: 200px;
 }
 
+.ellipsize-ref {
+  width: 80px;
+}
+
+.yes {
+  color: $green-light;
+}
+
+.no {
+  color: $red-light;
+}
+
+.table-search {
+  width: 100%;
+}
+
+.invalid-osm-link {
+  width: 100px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.osm-link {
+  font-family: monospace;
+  width: 100px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+input.form-control-sm {
+  font-size: 0.7rem;
+  padding: .05rem .25rem;
+  min-height: calc(1.5em + 0.2rem + 2px);
+  margin: 0;
+}
+
+table.fixedHeader-floating {
+  box-shadow: $body-bg-light 0 0 5px 10px;
+}
+
+#example_filter {
+  text-align: center;
+  margin: 2rem;
+}
+
+#showValidationColumns {
+  margin:auto;
+}
+
+#example_filter {
+  text-align: center;
+  margin: 2rem;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
-    background: #06090f;
-    color: #d6dade;
+    background: $body-bg-dark;
+    color: $body-color-dark;
   }
 
   a {
-    color: #0263f2;
+    color: #62A1FE;
   }
 
   a:hover {
-    color: #3583f5;
+    color: #8BB9FE;
   }
 
   .bg-light {
@@ -30,5 +100,30 @@
 
   .text-muted {
     color: #828b93 !important;
+  }
+
+  input.form-control {
+    background: $body-bg-dark;
+    border-color: #333;
+    color: #d6dade;
+  }
+
+  input.form-control:focus {
+    background: $body-bg-dark;
+    border-color: #333;
+    color: #d6dade;
+  }
+
+  table.fixedHeader-floating {
+    background: $body-bg-dark;
+    box-shadow: $body-bg-dark 0 0 5px 10px;
+  }
+
+  .yes {
+    color: $green-dark;
+  }
+
+  .no {
+    color: $red-dark;
   }
 }
