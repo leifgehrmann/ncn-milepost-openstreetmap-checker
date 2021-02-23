@@ -36,13 +36,49 @@
                 } );
 
                 var table = jQuery('#example').DataTable({
-                    "paging":   false,
+                    "paging": true,
+                    "lengthMenu": [ [ 50, 100, 500, -1 ], [ 50, 100, 500, "All" ] ],
                     "responsive": false,
                     "orderCellsTop": true,
                     "fixedHeader": true
                 });
 
-                jQuery('#showValidationColumns').appendTo(jQuery('#example_wrapper > .row:first-child > div:first-child')).show();
+                jQuery('#showValidationColumns').show();
+
+                var validWikiRef = table.column(7);
+                var validOsmRef = table.column(8);
+                var matchingRef = table.column(9);
+                var validWikiMilepostType = table.column(12);
+                var validOsmMilepostType = table.column(13);
+                var matchingMilepostType = table.column(14);
+                var validNodeIdInWiki = table.column(17);
+                var matchingNodeId = table.column(18);
+
+                validWikiRef.visible(false);
+                validOsmRef.visible(false);
+                matchingRef.visible(false);
+                validWikiMilepostType.visible(false);
+                validOsmMilepostType.visible(false);
+                matchingMilepostType.visible(false);
+                validNodeIdInWiki.visible(false);
+                matchingNodeId.visible(false);
+
+                jQuery('#showSustransRefValidationColumns').on('click', function (e) {
+                    validWikiRef.visible( ! validWikiRef.visible() );
+                    validOsmRef.visible( ! validOsmRef.visible() );
+                    matchingRef.visible( ! matchingRef.visible() );
+                } );
+
+                jQuery('#showMilepostTypeValidationColumns').on('click', function (e) {
+                    validWikiMilepostType.visible( ! validWikiMilepostType.visible() );
+                    validOsmMilepostType.visible( ! validOsmMilepostType.visible() );
+                    matchingMilepostType.visible( ! matchingMilepostType.visible() );
+                } );
+
+                jQuery('#showNodeIdValidationColumns').on('click', function (e) {
+                    validNodeIdInWiki.visible( ! validNodeIdInWiki.visible() );
+                    matchingNodeId.visible( ! matchingNodeId.visible() );
+                } );
             }
         }
     </script>

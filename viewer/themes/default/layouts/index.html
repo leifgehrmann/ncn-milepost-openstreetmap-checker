@@ -2,10 +2,14 @@
 
 <section class="py-5 container">
     <div class="row py-lg-5">
-        <div class="col-lg-4 col-md-6 mx-auto">
-            <img src="https://assets.leifgehrmann.com/posts/2019-04-13/ncn-mileposts-collage.jpg" class="img-fluid rounded" alt="bla">
+        <div class="col-lg-4 col-md-6 col-12 py-md-0 py-5 mx-auto">
+            <div class="col-md-1 col-3 mx-auto"></div>
+            <div class="col-md-10 col-6 mx-auto">
+                <img src="https://assets.leifgehrmann.com/posts/2019-04-13/ncn-mileposts-collage.jpg" class="img-fluid rounded" alt="bla">
+            </div>
+            <div class="col-md-1 col-3 mx-auto"></div>
         </div>
-        <div class="col-lg-8 col-md-6 mx-auto">
+        <div class="col-lg-8 col-md-6 col-12 mx-auto">
             <h1 class="fw-light">NCN Millennium Mileposts in OpenStreetMap</h1>
             <p class="lead text-muted">Across the United Kingdom are hundreds of mileposts, </p>
         </div>
@@ -13,6 +17,9 @@
 </section>
 <div class="py-2 bg-light">
     <div class="container">
+        <div class="row text-center py-5">
+            <h2 class="fw-light">Summary</h2>
+        </div>
         <div class="row">
             {{ $url := "data/output.csv" }}
             {{ $sep := "," }}
@@ -52,29 +59,30 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="row">
-        <div id="showValidationColumns" style="display:none;">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="showSustransRefValidationColumns">
-                <label class="form-check-label" for="showSustransRefValidationColumns">
-                    Show Sustrans Ref validation columns
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="showMilepostTypeValidationColumns">
-                <label class="form-check-label" for="showMilepostTypeValidationColumns">
-                    Show milepost type validation columns
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="showNodeIdValidationColumns">
-                <label class="form-check-label" for="showNodeIdValidationColumns">
-                    Show Node ID validation columns
-                </label>
-            </div>
+    <div class="row text-center py-5">
+        <h2 class="fw-light">Full Results</h2>
+    </div>
+    <div class="row" id="showValidationColumns" style="display:none;margin-top: 20px">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showSustransRefValidationColumns">
+            <label class="form-check-label" for="showSustransRefValidationColumns">
+                Show Sustrans Ref validation columns
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showMilepostTypeValidationColumns">
+            <label class="form-check-label" for="showMilepostTypeValidationColumns">
+                Show milepost type validation columns
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showNodeIdValidationColumns">
+            <label class="form-check-label" for="showNodeIdValidationColumns">
+                Show Node ID validation columns
+            </label>
         </div>
     </div>
-    <table id="example">
+    <table id="example" style="width:100%">
         <thead>
         <tr>
             <th>Sustrans Ref</th>
