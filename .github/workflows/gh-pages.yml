@@ -51,7 +51,7 @@ jobs:
     - name: Setup dist folder for github.io
       run: |
         touch ./viewer/public/.nojekyll
-        sed -i '/\/viewer/public/d' .gitignore
+        sed -i '/\/viewer\/public/d' .gitignore
         echo "ncn-milepost-openstreetmap-checker.leifgehrmann.com" >> ./viewer/public/CNAME
 
     - name: Deploy
