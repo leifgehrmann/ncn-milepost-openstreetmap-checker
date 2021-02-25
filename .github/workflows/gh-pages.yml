@@ -20,23 +20,44 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        cd checker
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run check script to generate CSV
       run: |
+        cd checker
         python check.py
-    - name: Convert CSV into a readable document
+    - name: Move the output.csv file to the data folder in viewer
       run: |
-        python render_csv_to_html.py
+        mv output/output.csv viewer/data/output.csv
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: latest
+    - name: npm install, build, and lint
+      run: |
+        cd viewer
+        npm ci
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.79.1'
+    - name: Build
+      run: |
+        cd viewer
+        hugo --minify
     - name: Setup dist folder for github.io
       run: |
-        touch ./dist/.nojekyll
-        sed -i '/\/dist/d' .gitignore
-        echo "ncn-milepost-openstreetmap-checker.leifgehrmann.com" >> ./dist/CNAME
+        touch ./viewer/public/.nojekyll
+        sed -i '/\/viewer/public/d' .gitignore
+        echo "ncn-milepost-openstreetmap-checker.leifgehrmann.com" >> ./viewer/public/CNAME
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: ./dist
+        publish_dir: ./viewer/public
         force_orphan: true

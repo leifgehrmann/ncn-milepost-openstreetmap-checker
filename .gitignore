@@ -1,5 +1,16 @@
-venv
+# General
 .idea
-dist
-output*.csv
+.DS_Store
+
+#checker
+venv
 __pycache__
+
+# viewer
+node_modules/
+/viewer/public/
+resources/
+
+# Output
+dist/
+output*.csv

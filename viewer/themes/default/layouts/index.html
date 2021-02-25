@@ -1,0 +1,207 @@
+{{ define "main" }}
+
+<section class="py-5 container">
+    <div class="row py-lg-5">
+        <div class="col-lg-1 mx-auto"></div>
+        <div class="col-lg-4 col-md-6 col-12 py-md-0 py-5 mx-auto">
+            <div class="col-md-1 col-2 mx-auto"></div>
+            <div class="col-md-10 col-8 mx-auto">
+                <img src="https://assets.leifgehrmann.com/posts/2019-04-13/ncn-mileposts-collage.jpg" class="img-fluid rounded" alt="A collage of different millennium mileposts in different parts of the United Kingdom.">
+            </div>
+            <div class="col-md-1 col-2 mx-auto"></div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 mx-auto">
+            <h1 class="fw-light">Sustrans Millennium Mileposts in OpenStreetMap</h1>
+            <p class="lead text-muted">A monitoring tool for measuring the completeness of Sustrans Milepost data mapped in OpenStreetMap.org</p>
+        </div>
+        <div class="col-lg-1 mx-auto"></div>
+    </div>
+    <div class="row py-3">
+        <div class="col-lg-2 mx-auto"></div>
+        <div class="col-lg-8 mx-auto">
+            <p>
+                Roughly 1000 mileposts exist throughout the United Kingdom and can be found along cycle routes, train stations, and villages.
+                These mileposts are artworks; large cast-iron sculptures that some communities have even painted to add their own personal flair.
+                You can read more about these sculptures on <a href="https://www.sustrans.org.uk/national-cycle-network/millennium-mileposts/">sustrans.org.uk</a>.
+            </p>
+            <p>
+                This website lists all of the mileposts that are mapped in OpenStreetMap (OSM).
+                It also cross-references these mileposts with the <a href="https://wiki.openstreetmap.org/wiki/Sustrans_Millennium_Mileposts">OpenStreetMap Wiki</a>, which has a page that catalogues mileposts that should exist but haven't yet been mapped in OSM.
+            </p>
+            <p>
+                Some of the data in OSM and the Wiki is incomplete, inconsistent, or outdated, so this website can be used as a tool for correcting the data.
+                This website updates automatically once every week. See <a href="#data-and-attribution">Data &amp; Attribution</a> for more information.
+            </p>
+        </div>
+        <div class="col-lg-2 mx-auto"></div>
+    </div>
+</section>
+<div class="py-3 bg-light">
+    <div class="container">
+        <div class="row text-center py-3">
+            <h2 class="fw-light">Summary</h2>
+        </div>
+        <div class="row">
+            {{ $url := "data/output.csv" }}
+            {{ $sep := "," }}
+            {{ $totalMilepostsListedInWiki := 0 }}
+            {{ $totalMilepostsMappedInOsm := 0 }}
+            {{ $totalMilepostsComplete := 0 }}
+            {{ range $i, $r := getCSV $sep $url }}
+                {{ $milepostListedInWiki := index $r 1 }}
+                {{ $milepostMappedInOsm := index $r 2 }}
+                {{ $milepostMappedComplete := index $r 4 }}
+                {{ if eq $milepostListedInWiki "Yes" }}
+                    {{ $totalMilepostsListedInWiki = add $totalMilepostsListedInWiki 1 }}
+                {{ end }}
+                {{ if eq $milepostMappedInOsm "Yes" }}
+                    {{ $totalMilepostsMappedInOsm = add $totalMilepostsMappedInOsm 1 }}
+                {{ end }}
+                {{ if eq $milepostMappedComplete "Yes" }}
+                    {{ $totalMilepostsComplete = add $totalMilepostsComplete 1 }}
+                {{ end }}
+            {{ end }}
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">{{ $totalMilepostsListedInWiki }}</p>
+                <p class="text-muted">&nbsp;</p>
+                <p class="">Mileposts listed in the OpenStreetMap Wiki</p>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">{{ math.Round ( mul ( div $totalMilepostsMappedInOsm (float $totalMilepostsListedInWiki) ) 100 ) }}%</p>
+                <p class="text-muted">{{ $totalMilepostsMappedInOsm }} / {{ $totalMilepostsListedInWiki }}</p>
+                <p class="">Mileposts mapped in OpenStreetMap.org</p>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center py-5">
+                <p class="display-4">{{ math.Round ( mul ( div $totalMilepostsComplete (float $totalMilepostsListedInWiki) ) 100 ) }}%</p>
+                <p class="text-muted">{{ $totalMilepostsComplete }} / {{ $totalMilepostsListedInWiki }}</p>
+                <p class="">Mileposts <span class="fst-italic fw-bold">complete</span> in OpenStreetMap.org and OpenStreetMap Wiki</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-3">
+    <div class="container-fluid">
+        <div class="row text-center py-3">
+            <h2 class="fw-light">Full Results</h2>
+        </div>
+        <div class="row" id="showValidationColumns" style="display:none;margin-top: 20px">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="showSustransRefValidationColumns">
+                <label class="form-check-label" for="showSustransRefValidationColumns">
+                    Show Sustrans Ref validation columns
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="showMilepostTypeValidationColumns">
+                <label class="form-check-label" for="showMilepostTypeValidationColumns">
+                    Show milepost type validation columns
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="showNodeIdValidationColumns">
+                <label class="form-check-label" for="showNodeIdValidationColumns">
+                    Show Node ID validation columns
+                </label>
+            </div>
+        </div>
+        <table id="example" style="width:100%">
+            <thead>
+            <tr>
+                <th>Sustrans Ref</th>
+                <th>Listed in Wiki</th>
+                <th>Mapped in OSM</th>
+                <th>Complete in OSM</th>
+                <th>Complete in in OSM and Wiki</th>
+                <th>Sustrans Ref in Wiki</th>
+                <th>Sustrans Ref in OSM</th>
+                <th>Valid Wiki Sustrans Ref</th>
+                <th>Valid OSM Sustrans Ref</th>
+                <th>Matching Sustrans Ref</th>
+                <th>Milepost Type in Wiki</th>
+                <th>Milepost Type in OSM</th>
+                <th>Valid Wiki Milepost Type</th>
+                <th>Valid OSM Milepost Type</th>
+                <th>Matching Milepost Type</th>
+                <th>Node ID link in Wiki</th>
+                <th>Node ID in OSM</th>
+                <th>Valid Node ID in Wiki</th>
+                <th>Matching Node ID</th>
+                <th>Wiki Region</th>
+                <th>Wiki Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ $url := "data/output.csv" }}
+            {{ $sep := "," }}
+            {{ range $i, $r := getCSV $sep $url }}
+            {{ if ne $i 0 }}
+            <tr>
+                <td>{{ index $r 0 }}</td>
+                <td><span class="{{ lower (index $r 1) }}">{{ index $r 1 }}</span></td>
+                <td><span class="{{ lower (index $r 2) }}">{{ index $r 2 }}</span></td>
+                <td><span class="{{ lower (index $r 3) }}">{{ index $r 3 }}</span></td>
+                <td><span class="{{ lower (index $r 4) }}">{{ index $r 4 }}</span></td>
+                <td><span class="ellipsize ellipsize-ref" title="{{ index $r 5 }}">{{ index $r 5 }}</span></td>
+                <td><span class="ellipsize ellipsize-ref" title="{{ index $r 6 }}">{{ index $r 6 }}</span></td>
+                <td><span class="{{ lower (index $r 7) }}">{{ index $r 7 }}</span></td>
+                <td><span class="{{ lower (index $r 8) }}">{{ index $r 8 }}</span></td>
+                <td><span class="{{ lower (index $r 9) }}">{{ index $r 9 }}</span></td>
+                <td><span class="ellipsize ellipsize-ref" title="{{ index $r 10 }}">{{ index $r 10 }}</span></td>
+                <td><span class="ellipsize ellipsize-ref" title="{{ index $r 11 }}">{{ index $r 11 }}</span></td>
+                <td><span class="{{ lower (index $r 12) }}">{{ index $r 12 }}</span></td>
+                <td><span class="{{ lower (index $r 13) }}">{{ index $r 13 }}</span></td>
+                <td><span class="{{ lower (index $r 14) }}">{{ index $r 14 }}</span></td>
+                {{ if and (ne (index $r 15) "-") (eq (index $r 17) "Yes") }}
+                <td><a href="https://osm.org/node/{{ index $r 15 }}" class="osm-link">{{ index $r 15 }}</a></td>
+                {{ else }}
+                <td><span class="invalid-osm-link" title="{{ index $r 15 }}">{{ index $r 15 }}</span></td>
+                {{ end }}
+                {{ if ne (index $r 16) "-" }}
+                <td><a href="https://osm.org/node/{{ index $r 16 }}" class="osm-link">{{ index $r 16 }}</a></td>
+                {{ else }}
+                <td><span class="invalid-osm-link" title="{{ index $r 16 }}">{{ index $r 16 }}</span></td>
+                {{ end }}
+                <td><span class="{{ lower (index $r 17) }}">{{ index $r 17 }}</span></td>
+                <td><span class="{{ lower (index $r 18) }}">{{ index $r 18 }}</span></td>
+                <td><span class="ellipsize" title="{{ index $r 21 }}">{{ index $r 21 }}</span></td>
+                <td><span class="ellipsize" title="{{ index $r 22 }}">{{ index $r 22 }}</span></td>
+            </tr>
+            {{ end }}
+            {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="py-3 bg-light">
+    <div class="container">
+        <div class="row text-center py-3" id="data-and-attribution">
+            <h2 class="fw-light">Data &amp; Attribution</h2>
+        </div>
+        <div class="row">
+            <p>This page was last updated on: {{ now.Format "2006-01-02 15:04:05Z07:00" }}</p>
+            <p>
+                Wiki data comes from the OpenStreetMap wiki article
+                <a href="https://wiki.openstreetmap.org/wiki/Sustrans_Millennium_Mileposts"><em>Sustrans Millennium Mileposts</em></a>,
+                whose content is licensed under
+                <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>.
+            </p>
+            <p>
+                OSM data queried from
+                <a href="https://overpass-turbo.eu/s/HMg">Overpass Turbo</a>,
+                from which the data comes from
+                <a href="https://openstreetmap.org">OpenStreetMap.org</a>
+                (&copy;&nbsp;OpenStreetMap contributors), whose content is licensed under
+                <a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License (ODbL)</a>.
+            </p>
+            <p>
+                The photo of mileposts is by <a href="https://leifgehrmann.com">Leif Gehrmann</a>, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+            </p>
+            <p>Source code for this page can be found at <a href="https://github.com/leifgehrmann/ncn-milepost-openstreetmap-checker">Github.com</a>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="py-5">
+</div>
+
+{{ end }}

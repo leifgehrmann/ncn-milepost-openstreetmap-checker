@@ -1,0 +1,77 @@
+<footer>
+    <!-- JavaScript and dependencies -->
+
+    {{ $jquery := resources.Get "js/jquery.min.js" }}
+    {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" }}
+    {{ $dataTablesJquery := resources.Get "js/jquery.dataTables.min.js" }}
+    {{ $dataTablesFixedHeader := resources.Get "js/dataTables.fixedHeader.min.js" }}
+    {{ $js := slice $jquery $bootstrap $dataTablesJquery $dataTablesFixedHeader | resources.Concat "js/bundle.js" | resources.Minify }}
+
+    <script src="{{$js.RelPermalink}}"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState === "interactive") {
+                jQuery('#example thead tr').clone(true).appendTo( '#example thead' );
+                jQuery('#example thead tr:eq(1) th').each( function (i) {
+                    var title = jQuery(this).text();
+                    jQuery(this).html( '<input type="text" placeholder="Search" class="form-control form-control-sm table-search"/>' );
+
+                    jQuery( 'input', this ).on( 'keyup change', function () {
+                        if ( table.column(i).search() !== this.value ) {
+                            table
+                                .column(i)
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                } );
+
+                var table = jQuery('#example').DataTable({
+                    "paging": true,
+                    "lengthMenu": [ [ 50, 100, 500, -1 ], [ 50, 100, 500, "All" ] ],
+                    "responsive": false,
+                    "orderCellsTop": true,
+                    "fixedHeader": true
+                });
+
+                jQuery('#showValidationColumns').show();
+
+                var validWikiRef = table.column(7);
+                var validOsmRef = table.column(8);
+                var matchingRef = table.column(9);
+                var validWikiMilepostType = table.column(12);
+                var validOsmMilepostType = table.column(13);
+                var matchingMilepostType = table.column(14);
+                var validNodeIdInWiki = table.column(17);
+                var matchingNodeId = table.column(18);
+
+                validWikiRef.visible(false);
+                validOsmRef.visible(false);
+                matchingRef.visible(false);
+                validWikiMilepostType.visible(false);
+                validOsmMilepostType.visible(false);
+                matchingMilepostType.visible(false);
+                validNodeIdInWiki.visible(false);
+                matchingNodeId.visible(false);
+
+                jQuery('#showSustransRefValidationColumns').on('click', function (e) {
+                    validWikiRef.visible( ! validWikiRef.visible() );
+                    validOsmRef.visible( ! validOsmRef.visible() );
+                    matchingRef.visible( ! matchingRef.visible() );
+                } );
+
+                jQuery('#showMilepostTypeValidationColumns').on('click', function (e) {
+                    validWikiMilepostType.visible( ! validWikiMilepostType.visible() );
+                    validOsmMilepostType.visible( ! validOsmMilepostType.visible() );
+                    matchingMilepostType.visible( ! matchingMilepostType.visible() );
+                } );
+
+                jQuery('#showNodeIdValidationColumns').on('click', function (e) {
+                    validNodeIdInWiki.visible( ! validNodeIdInWiki.visible() );
+                    matchingNodeId.visible( ! matchingNodeId.visible() );
+                } );
+            }
+        }
+    </script>
+</footer>

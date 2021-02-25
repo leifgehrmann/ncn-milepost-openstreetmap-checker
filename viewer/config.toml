@@ -1,0 +1,21 @@
+baseURL = "http://example.org/"
+languageCode = "en-gb"
+title = "NCN Mileposts"
+theme = "default"
+
+[module]
+  [[module.mounts]]
+    source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    target = "assets/js/bootstrap.bundle.min.js"
+  [[module.mounts]]
+    source = "node_modules/datatables.net/js/jquery.dataTables.min.js"
+    target = "assets/js/jquery.dataTables.min.js"
+  [[module.mounts]]
+    source = "node_modules/datatables.net-dt/js/dataTables.dataTables.min.js"
+    target = "assets/js/dataTables.dataTables.min.js"
+  [[module.mounts]]
+    source = "node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"
+    target = "assets/js/dataTables.fixedHeader.min.js"
+  [[module.mounts]]
+    source = "node_modules/jquery/dist/jquery.min.js"
+    target = "assets/js/jquery.min.js"
