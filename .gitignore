@@ -8,7 +8,7 @@ __pycache__
 
 # viewer
 node_modules/
-public/
+/viewer/public/
 resources/
 
 # Output
