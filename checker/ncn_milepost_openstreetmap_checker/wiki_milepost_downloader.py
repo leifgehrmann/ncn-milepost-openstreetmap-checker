@@ -47,7 +47,7 @@ class WikiMilepostDownloader:
         while attempts <= 5:
             self.logger.info('Downloading wiki page (Attempt %d)' % attempts)
             try:
-                with urllib.request.urlopen(self.url) as response:
+                with urllib.request.urlopen(self.url, timeout=120) as response:
                     html = response.read()
                     break
             except HTTPError:
