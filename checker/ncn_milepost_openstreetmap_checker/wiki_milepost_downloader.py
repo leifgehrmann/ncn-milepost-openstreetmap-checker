@@ -1,4 +1,5 @@
 import logging
+from socket import timeout
 from urllib.error import HTTPError
 
 from bs4 import BeautifulSoup
@@ -51,7 +52,12 @@ class WikiMilepostDownloader:
                     html = response.read()
                     break
             except HTTPError:
-                self.logger.exception('Error downloading wiki page')
+                self.logger.exception('HTTPError downloading wiki page')
+            except timeout:
+                self.logger.exception(
+                    'socket.timeout error downloading wiki page'
+                )
+            finally:
                 attempts += 1
         self.logger.info('Downloaded wiki page, now parsing wiki HTML')
         soup = BeautifulSoup(html, 'html.parser')
