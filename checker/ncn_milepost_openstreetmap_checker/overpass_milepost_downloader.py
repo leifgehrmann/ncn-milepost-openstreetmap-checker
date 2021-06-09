@@ -1,4 +1,5 @@
 import logging
+import time
 
 import overpass
 from . import Milepost
@@ -46,8 +47,27 @@ class OverpassMilepostDownloader:
 
     def download(self) -> None:
         bbox_str = ','.join(map(str, self.bbox))
-        self.logger.info('Downloading OSM data')
-        response = self.api.get('node[ncn_milepost](%s)' % bbox_str)
+        attempts = 1
+        response = None
+
+        # We try 5 times because sometimes the OpenStreetMap wiki times out.
+        while attempts <= 5:
+            self.logger.info('Downloading OSM data (Attempt %d)' % attempts)
+            try:
+                response = self.api.get('node[ncn_milepost](%s)' % bbox_str)
+                break
+            except overpass.errors.ServerLoadError:
+                self.logger.warning(
+                    'ServerLoadError downloading OSM Data - '
+                    'Waiting 20 seconds to cool down'
+                )
+                time.sleep(20)
+            finally:
+                attempts += 1
+
+        if response is None:
+            raise Exception('Failed downloading OSM data')
+
         self.logger.info('Downloaded OSM data, now processing OSM data')
         for feature in response['features']:
             sustrans_ref = self._get_sustrans_ref_from_feature(feature)

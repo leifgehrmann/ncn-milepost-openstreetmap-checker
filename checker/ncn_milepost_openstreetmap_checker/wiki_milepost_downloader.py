@@ -52,13 +52,17 @@ class WikiMilepostDownloader:
                     html = response.read()
                     break
             except HTTPError:
-                self.logger.exception('HTTPError downloading wiki page')
+                self.logger.warning('HTTPError downloading wiki page')
             except timeout:
-                self.logger.exception(
+                self.logger.warning(
                     'socket.timeout error downloading wiki page'
                 )
             finally:
                 attempts += 1
+
+        if html == '':
+            raise Exception('Failed downloading wiki page')
+
         self.logger.info('Downloaded wiki page, now parsing wiki HTML')
         soup = BeautifulSoup(html, 'html.parser')
         self.logger.info('Parsed wiki HTML, now processing wiki HTML')
