@@ -25,4 +25,7 @@ class WikiMilepostRow:
         anchor = self.row.select_one('td:nth-of-type(5) a.text')
         if anchor is None:
             return None
-        return anchor.get_text().strip()
+        text = anchor.get_text().strip()
+        if not text.isdigit():
+            return None
+        return text
