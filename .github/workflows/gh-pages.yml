@@ -32,7 +32,7 @@ jobs:
         python check.py
     - name: Move the output.csv file to the data folder in viewer
       run: |
-        mv output/output.csv viewer/data/
+        mv output/output.csv viewer/themes/default/assets/data/
 
     - name: Use Node.js
       uses: actions/setup-node@v2
